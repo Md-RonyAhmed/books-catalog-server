@@ -82,13 +82,13 @@ const getAllBooks = async (
   };
 };
 
-//get a single book from the database
-// const getSinglebook = async (id: string): Promise<Ibook | null> => {
-//   const data = await book.findById(id).populate('seller');
-//   return data;
-// };
+// get a single book from the database
+const getSingleBook = async (id: string): Promise<IBooks | null> => {
+  const data = await Books.findById(id);
+  return data;
+};
 
-// update the book into database
+// update the book into databa
 // const updatebook = async (
 //   id: string,
 //   user: JwtPayload | null,
@@ -134,7 +134,7 @@ const getAllBooks = async (
 export const BooksService = {
   createBook,
   getAllBooks,
-  //   getSinglebook,
+  getSingleBook,
   //   updatebook,
   //   deletebook,
 };

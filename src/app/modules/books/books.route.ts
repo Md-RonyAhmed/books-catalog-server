@@ -10,6 +10,7 @@ router
     auth()
     //     BooksController.createBook
   )
-  .get('/', BooksController.getAllBooks);
+  .get('/', BooksController.getAllBooks)
+  .get('/:id', BooksController.getSingleBook);
 
 export const BooksRoutes = router;
