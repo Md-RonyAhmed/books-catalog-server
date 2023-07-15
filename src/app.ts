@@ -2,7 +2,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import httpStatus from 'http-status';
 import cookieParser from 'cookie-parser';
-// import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import globalErrorHandler from './app/middlewares/globalErrorHandler';
 // import routes from '../src/app/routes/index';
 
 //create app
@@ -29,7 +29,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 //global error handler
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 //handle not found route
 app.use((req: Request, res: Response, next: NextFunction) => {
