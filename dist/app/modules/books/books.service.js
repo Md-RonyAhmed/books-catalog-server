@@ -80,12 +80,12 @@ const getAllBooks = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
         data,
     };
 });
-//get a single book from the database
-// const getSinglebook = async (id: string): Promise<Ibook | null> => {
-//   const data = await book.findById(id).populate('seller');
-//   return data;
-// };
-// update the book into database
+// get a single book from the database
+const getSingleBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield books_model_1.Books.findById(id);
+    return data;
+});
+// update the book into databa
 // const updatebook = async (
 //   id: string,
 //   user: JwtPayload | null,
@@ -121,7 +121,7 @@ const getAllBooks = (filters, paginationOptions) => __awaiter(void 0, void 0, vo
 exports.BooksService = {
     createBook: exports.createBook,
     getAllBooks,
-    //   getSinglebook,
+    getSingleBook,
     //   updatebook,
     //   deletebook,
 };

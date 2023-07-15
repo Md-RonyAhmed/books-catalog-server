@@ -12,5 +12,6 @@ router
     .post('/create-book', (0, auth_1.default)()
 //     BooksController.createBook
 )
-    .get('/', books_controller_1.BooksController.getAllBooks);
+    .get('/', books_controller_1.BooksController.getAllBooks)
+    .get('/:id', books_controller_1.BooksController.getSingleBook);
 exports.BooksRoutes = router;

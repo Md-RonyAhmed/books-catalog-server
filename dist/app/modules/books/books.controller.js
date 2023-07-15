@@ -55,4 +55,15 @@ const getAllBooks = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: data.data,
     });
 }));
-exports.BooksController = { createBook, getAllBooks };
+//get a Book
+const getSingleBook = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const data = yield books_service_1.BooksService.getSingleBook(id);
+    (0, sendApiResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Book retrieved successfully!',
+        data,
+    });
+}));
+exports.BooksController = { createBook, getAllBooks, getSingleBook };
