@@ -1,17 +1,15 @@
-const express = require('express');
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+const express = require("express");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
 const port = process.env.PORT || 5000;
 
-const cors = require('cors');
+const cors = require("cors");
 require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${
-	process.env.DB_PASS
-}@tech-net.wrygwyk.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@tech-net.wrygwyk.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
@@ -25,19 +23,39 @@ const run = async () => {
 		const booksCollection = db.collection("books");
 		const userCollection = db.collection("users");
 
-		app.get("/books", async (req, res) => {
-			const cursor = booksCollection.find({});
-			const books = await cursor.toArray();
-
-			res.send({ status: true, data: books });
-		});
-
 		app.post("/book", async (req, res) => {
 			const book = req.body;
 
 			const result = await booksCollection.insertOne(book);
 
 			res.send(result);
+		});
+
+		//get limited books
+		app.get("/books", async (req, res) => {
+			const limit = Number(req.query.limit);
+			const books = await booksCollection
+				.find()
+				.sort({ $natural: -1 })
+				.limit(limit)
+				.toArray();
+			if (!books?.length) {
+				return res.send({
+					success: false,
+					error: "No books found",
+				});
+			}
+			res.send({
+				success: true,
+				data: books,
+			});
+		});
+
+		app.get("/books", async (req, res) => {
+			const cursor = booksCollection.find({});
+			const books = await cursor.toArray();
+
+			res.send({ status: true, data: books });
 		});
 
 		app.get("/book/:id", async (req, res) => {
